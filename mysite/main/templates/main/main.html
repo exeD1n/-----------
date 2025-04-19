@@ -1,0 +1,72 @@
+{% extends 'main/layout.html' %}
+{% load static %} 
+{% block title %}Главная страница{% endblock title %}
+{% block content %}
+<div class="container pt-5 pb-5">
+    <h1 class="text-center">Добро пожаловать в наш оптовый интернет-магазин!</h1>
+
+    <!-- Карусель -->
+    <div id="carouselExample" class="carousel slide mt-4" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://img.freepik.com/free-vector/gradient-night-club-twitch-banner-template_23-2149931493.jpg?semt=ais_country_boost&w=740" class="d-block w-100" alt="Слайд 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://img.freepik.com/free-vector/gradient-night-club-twitch-banner-template_23-2149931493.jpg?semt=ais_country_boost&w=740" class="d-block w-100" alt="Слайд 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://img.freepik.com/free-vector/gradient-night-club-twitch-banner-template_23-2149931493.jpg?semt=ais_country_boost&w=740" class="d-block w-100" alt="Слайд 3">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Предыдущий</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Следующий</span>
+        </a>
+    </div>
+
+    <!-- Информация о товарах -->
+    <div class="mt-5">
+        <h2 class="text-center">О наших товарах</h2>
+        <p class="text-center">
+            Мы предлагаем широкий ассортимент товаров по конкурентоспособным ценам. Наша компания работает напрямую с производителями, что позволяет нам гарантировать высокое качество и доступные цены. Мы стремимся к тому, чтобы каждый клиент остался доволен своей покупкой.
+        </p>
+    </div>
+
+    <!-- Блок "Наши сотрудники" -->
+    <div class="mt-5">
+        <h2 class="text-center">Наши сотрудники</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Отчество</th>
+                        <th>Должность</th>
+                        <th>Электронная почта</th>
+                        <th>Телефон</th>
+                        <th>Адрес</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.first_name }}</td>
+                            <td>{{ employee.last_name }}</td>
+                            <td>{{ employee.middle_name }}</td>
+                            <td>{{ employee.position }}</td>
+                            <td>{{ employee.email }}</td>
+                            <td>{{ employee.phone_number }}</td>
+                            <td>{{ employee.address }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

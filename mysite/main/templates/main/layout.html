@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #343a40; /* Темный фон */
+            color: white;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f8f9fa; /* Светлый цвет для логотипа */
+        }
+        .search-bar input {
+            border-radius: 20px;
+            border: 1px solid #ced4da;
+        }
+        .search-bar button {
+            border-radius: 20px;
+            background-color: #007bff; /* Цвет кнопки поиска */
+            color: white;
+        }
+        .nav-link {
+            color: #f8f9fa !important; /* Цвет ссылок */
+            margin: 0 10px;
+        }
+        .nav-link:hover {
+            color: #007bff !important; /* Цвет при наведении */
+        }
+        .location-info {
+            color: #adb5bd; /* Светло-серый цвет для информации о местоположении */
+        }
+        .btn-custom {
+            background-color: #28a745; /* Цвет кнопок */
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #218838; /* Цвет кнопки при наведении */
+        }
+        footer {
+            background-color: #343a40; /* Темный фон */
+            color: white;
+            padding: 20px 0;
+        }
+        footer a {
+            color: #007bff; /* Цвет ссылок */
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: #0056b3; /* Цвет при наведении */
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <a href="{% url 'main' %}" class="logo" style="text-decoration: none; color: #f8f9fa;">Логотип</a>
+                </div>
+                <div class="col-md-4 search-bar">
+                    <form class="form-inline" method="GET" action="{% url 'search_products' %}">
+                        <input class="form-control mr-2" type="search" name="q" placeholder="Поиск" aria-label="Search">
+                        <button class="btn btn-custom" type="submit">Поиск</button>
+                    </form>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="#" class="btn btn-link">Корзина</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'user_profile' %}" class="btn btn-link">ЛК</a>
+                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link">Выйти</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-link">Вход</a>
+                        <a href="{% url 'register' %}" class="btn btn-link">Зарегистрироваться</a>
+                    {% endif %}
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'category_list' %}">Каталог</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'faq' %}">ЧАВО</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'company' %}">О компании</a>
+                        </li>
+                    </ul>
+                    <div class="ml-auto location-info">
+                        <p>Склад и офис: г. Москва, ул. Примерная, д. 1</p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Подключение Bootstrap JS и jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% block content %}
+    
+    {% endblock %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-white">О компании</h5>
+                    <p class="text-muted">Мы предоставляем лучшие услуги для наших клиентов. Свяжитесь с нами для получения дополнительной информации.</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <h5 class="text-white">Контакты</h5>
+                    <p class="text-muted">Телефон: +7 (123) 456-78-90</p>
+                    <p class="text-muted">Email: info@company.com</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col text-center">
+                    <p class="text-muted">&copy; 2025 Моя Компания. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{% extends 'main/layout.html' %}
+{% load static %} 
+{% block title %}ЧАВО{% endblock title %}
+{% block content %}
+<div class="container mt-5" style="padding: 50px 0;"> <!-- Добавлены отступы -->
+    <h1 class="text-center">Часто задаваемые вопросы (ЧАВО)</h1>
+    <div id="faqAccordion" class="accordion mt-4">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Как сделать заказ?
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Чтобы сделать заказ, выберите нужные товары, добавьте их в корзину и перейдите к оформлению заказа. Вам нужно будет указать свои контактные данные и адрес доставки.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Как оплатить заказ?
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Мы принимаем различные способы оплаты, включая кредитные карты, электронные кошельки и банковские переводы. Выберите удобный для вас способ на странице оформления заказа.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Как отслеживать свой заказ?
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                <div class="card-body">
+                    После отправки заказа вы получите электронное письмо с номером отслеживания. Вы можете использовать этот номер на нашем сайте, чтобы отслеживать статус доставки.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Как вернуть товар?
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Если вы хотите вернуть товар, пожалуйста, свяжитесь с нашей службой поддержки в течение 14 дней с момента получения. Мы предоставим вам инструкции по возврату.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Как получить скидку на оптовые заказы?
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                <div class="card-body">
+                    Для получения скидки на оптовые заказы, пожалуйста, свяжитесь с нашим менеджером по продажам. Мы предложим вам индивидуальные условия в зависимости от объема заказа.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

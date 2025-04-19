@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+{% load static %} 
+
+{% block title %}Категории{% endblock title %}
+
+{% block content %}
+<div class="container align-item-center mb-5 mt-5">
+    <h2 class="text-center mb-5">Категории</h2>
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-sm-2">  <!-- Изменено на col-md-2 для 5 плиток в строке -->
+                <div class="card mb-4 d-flex flex-column">  <!-- Установлена фиксированная высота карточки -->
+                    <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'default_image.jpg' %}{% endif %}" class="card-img-top" alt="{{ category.name }}" style="height: 150px; object-fit: cover;">  <!-- Установлен стиль для уменьшения размера -->
+                    <div class="card-body d-flex flex-grow-1 flex-column">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <a href="{% url 'subcategory_list' category.id %}" class="btn btn-primary mt-auto">Перейти</a>  <!-- Обновленная кнопка "Перейти" -->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="text-center mb-5">Товары</h2>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-3">  <!-- Изменено на col-md-3 для 4 товаров в строке -->
+                <div class="card mb-4 d-flex flex-column">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'default_image.jpg' %}{% endif %}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-grow-1 flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                        <p class="card-text"><strong>Цена: {{ product.price }}₽</strong></p>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success mt-auto">Добавить в корзину</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">Нет доступных товаров.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
