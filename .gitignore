@@ -1,1 +1,64 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pdb
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Django
+*.log
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+static/
+.env
+*.pot
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Coverage
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Sphinx documentation
+docs/_build/
+
+# Docker
+*.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
+# Ignore local settings
+local_settings.py
 /venv
