@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Categories, Subcategories, Employee, UserAddress, Products
+from django.contrib import messages
+from .models import Categories, Subcategories, Employee, UserAddress, Products, CartItem
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserUpdateForm, AddressForm
+from .forms import UserUpdateForm, AddressForm, AddressForm
 # # Create your views here.
 
 def main_page(request):
@@ -106,7 +107,9 @@ def add_address(request):
             address.user = request.user
             address.save()
             return redirect('user_profile')
-    return redirect('user_profile')
+    else:
+        form = AddressForm()  # Пустая форма для GET-запроса
+    return render(request, 'main/user_profile.html', {'form': form})
 
 @login_required
 def edit_address(request, address_id):
@@ -116,10 +119,43 @@ def edit_address(request, address_id):
         if form.is_valid():
             form.save()
             return redirect('user_profile')
-    return redirect('user_profile')
+    else:
+        form = AddressForm(instance=address)  # Заполнение формы существующими данными
+    return render(request, 'main/user_profile.html', {'form': form})
 
 @login_required
 def delete_address(request, address_id):
     address = get_object_or_404(UserAddress, id=address_id, user=request.user)
     address.delete()
     return redirect('user_profile')
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Products, id=product_id)
+    quantity = int(request.POST.get('quantity', 1))
+
+    cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    cart_item.quantity += quantity
+    cart_item.save()
+
+    return redirect('cart')  # Перенаправление на страницу корзины
+
+@login_required
+def cart_view(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.get_total_price() for item in cart_items)
+    return render(request, 'main/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+@login_required
+def update_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    quantity = int(request.POST.get('quantity', 1))
+    cart_item.quantity = quantity
+    cart_item.save()
+    return redirect('cart')
+
+@login_required
+def remove_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    cart_item.delete()
+    return redirect('cart')

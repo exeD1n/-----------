@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import UserAddress
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -13,3 +14,8 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = UserAddress
         fields = ['street', 'city', 'state', 'postal_code', 'country']
+        
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = UserAddress
+        fields = ['street', 'city', 'state', 'postal_code', 'country', 'contact_name', 'phone_number']

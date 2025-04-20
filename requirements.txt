@@ -1,0 +1,9 @@
+asgiref==3.8.1
+Django==5.2
+mysqlclient==2.2.7
+mysqlx-connector-python==9.2.0
+pillow==11.2.1
+protobuf==4.25.3
+PyMySQL==1.1.1
+sqlparse==0.5.3
+tzdata==2025.2

@@ -57,7 +57,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="editAddressModalLabel{{ address.id }}">Редактировать адрес</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type ="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -83,6 +83,14 @@
                                                 <div class="form-group">
                                                     <label for="country">Страна</label>
                                                     <input type="text" class="form-control" name="country" value="{{ address.country }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="contact_name">Имя контакта</label>
+                                                    <input type="text" class="form-control" name="contact_name" value="{{ address.contact_name }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phone_number">Номер телефона</label>
+                                                    <input type="text" class="form-control" name="phone_number" value="{{ address.phone_number }}">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -125,6 +133,14 @@
                     <label for="country">Страна</label>
                     <input type="text" class="form-control" name="country" placeholder="Страна" required>
                 </div>
+                <div class="form-group">
+                    <label for="contact_name">Имя контакта</label>
+                    <input type="text" class="form-control" name="contact_name" placeholder="Имя контакта">
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Номер телефона</label>
+                    <input type="text" class="form-control" name="phone_number" placeholder="Номер телефона">
+                </div>
                 <button type="submit" class="btn btn-primary">Добавить адрес</button>
             </form>
 
@@ -137,7 +153,7 @@
                 <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             </form>
 
-            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            <form action ="{% url 'logout' %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-link">Выйти</button>
             </form>

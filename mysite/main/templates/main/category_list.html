@@ -19,27 +19,5 @@
             </div>
         {% endfor %}
     </div>
-
-    <h2 class="text-center mb-5">Товары</h2>
-    <div class="row">
-        {% for product in products %}
-            <div class="col-sm-3">  <!-- Изменено на col-md-3 для 4 товаров в строке -->
-                <div class="card mb-4 d-flex flex-column">
-                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'default_image.jpg' %}{% endif %}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
-                    <div class="card-body d-flex flex-grow-1 flex-column">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-                        <p class="card-text"><strong>Цена: {{ product.price }}₽</strong></p>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success mt-auto">Добавить в корзину</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        {% empty %}
-            <p class="text-center">Нет доступных товаров.</p>
-        {% endfor %}
-    </div>
 </div>
 {% endblock content %}

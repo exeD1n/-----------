@@ -183,9 +183,11 @@ class UserAddress(models.Model):
     state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
+    contact_name = models.CharField(max_length=100, null=True)  # Make it nullable
+    phone_number = models.CharField(max_length=20, null=True)     # Make it nullable
 
     def __str__(self):
-        return f"{self.street}, {self.city}, {self.state}, {self.country}"
+        return f"{self.contact_name} - {self.street}, {self.city}, {self.state}, {self.country} ({self.phone_number})"
     
 class Employee(models.Model):
     first_name = models.CharField(max_length=30, verbose_name='Имя')
@@ -208,3 +210,14 @@ class Employee(models.Model):
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
         ordering = ['last_name', 'first_name']
+        
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def get_total_price(self):
+        return self.product.price * self.quantity
+
+    class Meta:
+        unique_together = ('user', 'product')  # Чтобы один и тот же товар не добавлялся несколько раз
