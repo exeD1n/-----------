@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from .models import Categories, Subcategories, Employee, UserAddress, Products, CartItem
+from .models import Categories, Subcategories, Employee, UserAddress, Products, CartItem, Order, OrderItem
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -93,9 +93,13 @@ def user_profile(request):
     else:
         form = UserUpdateForm(instance=request.user)
 
+    # Получение всех заказов пользователя
+    orders = Order.objects.filter(user=request.user)
+
     return render(request, 'main/user_profile.html', {
         'user': request.user,
-        'form': form
+        'form': form,
+        'orders': orders  # Передаем заказы в контекст
     })
 
 @login_required
@@ -159,3 +163,27 @@ def remove_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
     cart_item.delete()
     return redirect('cart')
+
+def create_order(request):
+    if request.method == 'POST':
+        address_id = request.POST.get('address_id')
+        address = UserAddress.objects.get(id=address_id)
+        cart_items = CartItem.objects.filter(user=request.user)
+
+        total_price = sum(item.get_total_price() for item in cart_items)
+
+        # Создание заказа
+        order = Order.objects.create(user=request.user, address=address, total_price=total_price)
+
+        # Создание элементов заказа
+        for item in cart_items:
+            OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
+
+        # Очистка корзины после оформления заказа
+        cart_items.delete()
+
+        return redirect('main')  # Перенаправление на страницу успешного оформления заказа
+
+    addresses = UserAddress.objects.filter(user=request.user)
+    return render(request, 'main/create_order.html', {'addresses': addresses})
+

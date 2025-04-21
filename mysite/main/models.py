@@ -221,3 +221,30 @@ class CartItem(models.Model):
 
     class Meta:
         unique_together = ('user', 'product')  # Чтобы один и тот же товар не добавлялся несколько раз
+        
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
+    address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='orders')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Общая стоимость')
+
+    def __str__(self):
+        return f"Заказ #{self.id} от {self.user.username} на сумму {self.total_price}"
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+        ordering = ['-created_at']
+        
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def get_total_price(self):
+        return self.product.price * self.quantity
+
+    class Meta:
+        verbose_name = 'Элемент заказа'
+        verbose_name_plural = 'Элементы заказа'

@@ -8,26 +8,62 @@
         <h2 class="text-center">Личный кабинет</h2>
         <div class="mt-4">
             <h4>Добро пожаловать, {{ user.username }}!</h4>
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Имя</th>
-                        <td>{{ user.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Фамилия</th>
-                        <td>{{ user.last_name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Дата регистрации</th>
-                        <td>{{ user.date_joined }}</td>
-                    </tr>
-                </tbody>
-            </table>
+<button class="btn btn-warning" data-toggle="modal" data-target="#editProfileModal">Изменить данные</button>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Имя</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия</th>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Дата регистрации</th>
+            <td>{{ user.date_joined }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Модальное окно для изменения данных пользователя -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Изменить данные</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="first_name">Имя</label>
+                        <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Фамилия</label>
+                        <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" value="{{ user.email }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
             <h5 class="mt-5">Ваши адреса</h5>
             <div class="table-responsive">
@@ -50,7 +86,6 @@
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAddressModal{{ address.id }}">Редактировать</button>
                                 </td>
                             </tr>
-
                             <!-- Модальное окно для редактирования адреса -->
                             <div class="modal fade" id="editAddressModal{{ address.id }}" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel{{ address.id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -73,7 +108,7 @@
                                                     <input type="text" class="form-control" name="city" value="{{ address.city }}" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="state">Штат</label>
+                                                    < label for="state">Штат</label>
                                                     <input type="text" class="form-control" name="state" value="{{ address.state }}" required>
                                                 </div>
                                                 <div class="form-group">
@@ -111,49 +146,94 @@
             </div>
 
             <h5 class="mt-5">Добавить новый адрес</h5>
+<button class="btn btn-primary" data-toggle="modal" data-target="#addAddressModal">Добавить новый адрес</button>
+
+<!-- Модальное окно для добавления нового адреса -->
+<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAddressModalLabel">Добавить новый адрес</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+ </div>
             <form method="post" action="{% url 'add_address' %}">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="street">Улица</label>
-                    <input type="text" class="form-control" name="street" placeholder="Улица" required>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="street">Улица</label>
+                        <input type="text" class="form-control" name="street" placeholder="Улица" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Город</label>
+                        <input type="text" class="form-control" name="city" placeholder="Город" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Штат</label>
+                        <input type="text" class="form-control" name="state" placeholder="Штат" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postal_code">Почтовый индекс</label>
+                        <input type="text" class="form-control" name="postal_code" placeholder="Почтовый индекс" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Страна</label>
+                        <input type="text" class="form-control" name="country" placeholder="Страна" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact_name">Имя контакта</label>
+                        <input type="text" class="form-control" name="contact_name" placeholder="Имя контакта">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Номер телефона</label>
+                        <input type="text" class="form-control" name="phone_number" placeholder="Номер телефона">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="city">Город</label>
-                    <input type="text" class="form-control" name="city" placeholder="Город" required>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить адрес</button>
                 </div>
-                <div class="form-group">
-                    <label for="state">Штат</label>
-                    <input type="text" class="form-control" name="state" placeholder="Штат" required>
-                </div>
-                <div class="form-group">
-                    <label for="postal_code">Почтовый индекс</label>
-                    <input type="text" class="form-control" name="postal_code" placeholder="Почтовый индекс" required>
-                </div>
-                <div class="form-group">
-                    <label for="country">Страна</label>
-                    <input type="text" class="form-control" name="country" placeholder="Страна" required>
-                </div>
-                <div class="form-group">
-                    <label for="contact_name">Имя контакта</label>
-                    <input type="text" class="form-control" name="contact_name" placeholder="Имя контакта">
-                </div>
-                <div class="form-group">
-                    <label for="phone_number">Номер телефона</label>
-                    <input type="text" class="form-control" name="phone_number" placeholder="Номер телефона">
-                </div>
-                <button type="submit" class="btn btn-primary">Добавить адрес</button>
             </form>
+        </div>
+    </div>
+</div>
 
-            <h5 class="mt-5">Изменить данные</h5>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.as_p }}  <!-- Отображение формы -->
-                </div>
-                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-            </form>
+            <h5 class="mt-5">Ваши заказы</h5>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Номер заказа</th>
+                            <th>Дата создания</th>
+                            <th>Общая стоимость</th>
+                            <th>Элементы заказа</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.created_at }}</td>
+                                <td>{{ order.total_price }}</td>
+                                <td>
+                                    <ul>
+                                        {% for item in order.items.all %}
+                                            <li>{{ item.product.name }} ({{ item.quantity }}) - {{ item.get_total_price }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">У вас нет заказов.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-            <form action ="{% url 'logout' %}" method="post" style="display:inline;">
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-link">Выйти</button>
             </form>
