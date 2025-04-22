@@ -2,18 +2,19 @@
 {% block title %}Оформление заказа{% endblock title %}
 
 {% block content %}
-<div class="container mb-5 mt-5">
-    <h2 class="text-center mb-5">Оформление заказа</h2>
-
-    <form method="POST">
-        {% csrf_token %}
-        <h3>Выберите адрес для доставки</h3>
-        <select name="address_id" class="form-control mb-3">
-            {% for address in addresses %}
-                <option value="{{ address.id }}">{{ address }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-success">Подтвердить заказ</button>
-    </form>
+<div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 75vh;">
+    <div class="col-md-4 col-sm-8 col-12">
+        <h2 class="text-center mb-4">Оформление заказа</h2>
+        <form method="POST" class="border p-4 rounded shadow">
+            {% csrf_token %}
+            <h3 class="mb-3">Выберите адрес для доставки</h3>
+            <select name="address_id" class="form-control mb-3">
+                {% for address in addresses %}
+                    <option value="{{ address.id }}">{{ address }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-success btn-block">Подтвердить заказ</button>
+        </form>
+    </div>
 </div>
 {% endblock content %}

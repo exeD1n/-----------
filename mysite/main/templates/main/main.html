@@ -3,7 +3,7 @@
 {% block title %}Главная страница{% endblock title %}
 {% block content %}
 <div class="container pt-5 pb-5">
-    <h1 class="text-center">Добро пожаловать в наш оптовый интернет-магазин!</h1>
+    <h1 class="text-center mb-4">Добро пожаловать в наш оптовый интернет-магазин!</h1>
 
     <!-- Карусель -->
     <div id="carouselExample" class="carousel slide mt-4" data-ride="carousel">
@@ -69,4 +69,33 @@
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Светлый фон для всего тела */
+        font-family: 'Arial', sans-serif; /* Шрифт для всего тела */
+    }
+    h1, h2 {
+        color: #343a40; /* Цвет заголовков */
+    }
+    .carousel-item img {
+        height: 400px; /* Высота изображений в карусели */
+        object-fit: cover; /* Обеспечивает правильное отображение изображений */
+    }
+    .table {
+        background-color: #ffffff; /* Белый фон для таблицы */
+        border-radius: 8px; /* Закругленные углы для таблицы */
+        box-shadow: 0 2px 10px rgba(0,  0, 0, 0.1); /* Тень для таблицы */
+    }
+    .table th {
+        background-color: #007bff; /* Цвет фона заголовков таблицы */
+        color: white; /* Цвет текста заголовков таблицы */
+    }
+    .table td {
+        vertical-align: middle; /* Вертикальное выравнивание текста в ячейках */
+    }
+    .mt-5 {
+        margin-top: 3rem !important; /* Увеличение отступа сверху для секций */
+    }
+</style>
 {% endblock content %}

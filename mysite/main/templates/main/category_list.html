@@ -5,14 +5,14 @@
 
 {% block content %}
 <div class="container align-item-center mb-5 mt-5">
-    <h2 class="text-center mb-5">Категории</h2>
+    <h2 class="text-center mb-3">Категории</h2>
     <div class="row">
         {% for category in categories %}
-            <div class="col-sm-2">  <!-- Изменено на col-md-2 для 5 плиток в строке -->
-                <div class="card mb-4 d-flex flex-column">  <!-- Установлена фиксированная высота карточки -->
+            <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-5">  <!-- Адаптивные колонки для разных экранов -->
+                <div class="card mb-4 h-100">  <!-- Установлена фиксированная высота карточки -->
                     <img src="{% if category.image %}{{ category.image.url }}{% else %}{% static 'default_image.jpg' %}{% endif %}" class="card-img-top" alt="{{ category.name }}" style="height: 150px; object-fit: cover;">  <!-- Установлен стиль для уменьшения размера -->
-                    <div class="card-body d-flex flex-grow-1 flex-column">
-                        <h5 class="card-title">{{ category.name }}</h5>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">{{ category.name }}</h5>
                         <a href="{% url 'subcategory_list' category.id %}" class="btn btn-primary mt-auto">Перейти</a>  <!-- Обновленная кнопка "Перейти" -->
                     </div>
                 </div>

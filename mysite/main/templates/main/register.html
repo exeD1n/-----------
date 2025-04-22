@@ -4,27 +4,29 @@
 {% block title %}Регистрация{% endblock title %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2 class="text-center">Регистрация</h2>
-        <form method="post" class="mt-4">
+<div class="container-fluid d-flex align-items-center justify-content-center" style="min-height: 75vh;">
+    <div class="col-md-4 col-sm-8 col-12">
+        <h2 class="text-center mb-4">Регистрация</h2>
+        <form method="post" class="border p-4 rounded shadow">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
-                {{ form.username }}  <!-- Используем фильтр для добавления класса -->
+                {{ form.username }}  <!-- Добавляем класс для стилизации -->
                 {{ form.username.errors }}
             </div>
             <div class="form-group">
                 <label for="{{ form.password1.id_for_label }}">Пароль</label>
-                {{ form.password1 }}  <!-- Используем фильтр для добавления класса -->
+                {{ form.password1 }}  <!-- Добавляем класс для стилизации -->
                 {{ form.password1.errors }}
             </div>
             <div class="form-group">
                 <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
-                {{ form.password2 }}  <!-- Используем фильтр для добавления класса -->
+                {{ form.password2 }}  <!-- Добавляем класс для стилизации -->
                 {{ form.password2.errors }}
             </div>
             <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
         </form>
         <p class="text-center mt-3">Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
     </div>
+</div>
 {% endblock content %}

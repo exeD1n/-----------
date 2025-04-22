@@ -8,60 +8,44 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa; /* Светлый фон для всего тела */
         }
         header {
-            background-color: #343a40; /* Темный фон */
-            color: white;
-            padding: 20px 0;
+            background-color: #343a40; /* Темный фон для заголовка */
+            color: #f8f9fa; /* Цвет текста */
+            padding: 20px 0; /* Отступы сверху и снизу */
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #f8f9fa; /* Светлый цвет для логотипа */
+        footer {
+            background-color: #343a40; /* Темный фон для футера */
+            color: #f8f9fa; /* Цвет текста */
+            padding: 20px 0; /* Отступы сверху и снизу */
         }
-        .search-bar input {
-            border-radius: 20px;
-            border: 1px solid #ced4da;
-        }
-        .search-bar button {
-            border-radius: 20px;
+        .btn-custom {
             background-color: #007bff; /* Цвет кнопки поиска */
             color: white;
         }
-        .nav-link {
-            color: #f8f9fa !important; /* Цвет ссылок */
-            margin: 0 10px;
-        }
-        .nav-link:hover {
-            color: #007bff !important; /* Цвет при наведении */
-        }
         .location-info {
-            color: #adb5bd; /* Светло-серый цвет для информации о местоположении */
+            color: #f8f9fa; /* Цвет текста для информации о местоположении */
         }
-        .btn-custom {
-            background-color: #28a745; /* Цвет кнопок */
-            color: white;
-            border-radius: 20px;
-            padding: 10px 20px;
-            transition: background-color 0.3s;
+        .table-responsive {
+            margin-top: 20px; /* Отступ сверху для таблицы */
         }
-        .btn-custom:hover {
-            background-color: #218838; /* Цвет кнопки при наведении */
+        h2 {
+            margin-top: 40px; /* Отступ сверху для заголовков */
+            margin-bottom: 20px; /* Отступ снизу для заголовков */
         }
-        footer {
-            background-color: #343a40; /* Темный фон */
-            color: white;
-            padding: 20px 0;
+        .footer-text {
+            font-size: 0.9rem; /* Уменьшенный размер шрифта для текста в футере */
         }
-        footer a {
-            color: #007bff; /* Цвет ссылок */
-            transition: color 0.3s;
+        @media (max-width: 576px) {
+            .location-info {
+                text-align: center; /* Центрирование текста на мобильных устройствах */
+                margin-top: 10px; /* Отступ сверху для мобильных устройств */
+            }
         }
-        footer a:hover {
-            color: #0056b3; /* Цвет при наведении */
-        }
-        
     </style>
 </head>
 <body>
@@ -69,12 +53,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-4">
-                    <a href="{% url 'main' %}" class="logo" style="text-decoration: none; color: #f8f9fa;">Логотип</a>
+                    <a href="{% url 'main' %}" class="logo" style="text-decoration: none; color: #f8f9fa; font-size: 24px;">Логотип</a>
                 </div>
-                <div class="col-md-4 search-bar">
-                    <form class="form-inline" method="GET" action="{% url 'search_products' %}">
+                <div class="col-md-4">
+                    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search_products' %}">
                         <input class="form-control mr-2" type="search" name="q" placeholder="Поиск" aria-label="Search">
-                        <button class="btn btn-custom" type="submit">Поиск</button>
+                        <button class="btn btn-custom my-2 my-sm-0" type="submit">Поиск</button>
                     </form>
                 </div>
                 <div class="col-md-4 text-right">
@@ -91,7 +75,7 @@
                     {% endif %}
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -111,7 +95,7 @@
                         </li>
                     </ul>
                     <div class="ml-auto location-info">
-                        <p>Склад и офис: г. Москва, ул. Примерная, д. 1</p>
+                        <p class="mb-0">Склад и офис: г. Москва, ул. Примерная, д. 1</p>
                     </div>
                 </div>
             </nav>
@@ -140,7 +124,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col text-center">
-                    <p class="text-muted">&copy; 2025 Моя Компания. Все права защищены.</p>
+                    <p class="footer-text text-muted">&copy; 2025 Моя Компания. Все права защищены.</p>
                 </div>
             </div>
         </div>
